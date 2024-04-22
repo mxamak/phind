@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Collection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #ddd;
+            padding: 10px;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        .recipe-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .recipe-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 10px;
+            width: 30%;
+        }
+        .recipe-item h3 {
+            margin: 0;
+        }
+        .recipe-item p {
+            margin: 0;
+        }
+        .filter-container {
+            margin-bottom: 20px;
+        }
+        .filter-container select {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Recipe Collection</h1>
+    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#recipes">Recipes</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <section id="recipes">
+        <div class="filter-container">
+            <label for="category">Filter by category:</label>
+            <select id="category">
+                <option value="">All</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="dessert">Dessert</option>
+            </select>
+        </div>
+        <div class="recipe-list">
+            <!-- Recipe items will be dynamically added here -->
+        </div>
+    </section>
+    <footer>
+        &copy; 2023 Recipe Collection. All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const recipes = [
+                {category: 'breakfast', title: 'Pancakes', description: 'Delicious pancakes with maple syrup.'},
+                {category: 'lunch', title: 'Salad', description: 'Fresh salad with tomatoes, cucumbers, and olives.'},
+                {category: 'dinner', title: 'Steak', description: 'Grilled steak with garlic and herbs.'},
+                {category: 'dessert', title: 'Ice Cream', description: 'Vanilla ice cream with chocolate chips.'},
+                // Add more recipes as needed
+            ];
+
+            const recipeList = document.querySelector('.recipe-list');
+            const categoryFilter = document.getElementById('category');
+
+            function renderRecipes() {
+                const selectedCategory = categoryFilter.value;
+                recipeList.innerHTML = ''; // Clear the list
+
+                recipes.forEach(recipe => {
+                    if (selectedCategory === '' || recipe.category === selectedCategory) {
+                        const recipeItem = document.createElement('div');
+                        recipeItem.classList.add('recipe-item');
+                        recipeItem.innerHTML = `
+                            <h3>${recipe.title}</h3>
+                            <p>${recipe.description}</p>
+                        `;
+                        recipeList.appendChild(recipeItem);
+                    }
+                });
+            }
+
+            categoryFilter.addEventListener('change', renderRecipes);
+            renderRecipes(); // Initial render
+        });
+    </script>
+</body>
+</html>
